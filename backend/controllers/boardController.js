@@ -1,5 +1,5 @@
 // controllers/boardController.js
-const Board = require('../models/Board.js');
+const Board = require("../models/Board.js");
 
 exports.createBoard = async (req, res) => {
   try {
@@ -54,14 +54,12 @@ exports.getBoard = async (req, res) => {
       return res.status(404).json({ error: "Board not found" });
     }
 
-    // add permission rbac check
-    
-    // if (
-    //   !board.members.some((member) => member._id.toString() === req.user.id) &&
-    //   board.owner._id.toString() !== req.user.id
-    // ) {
-    //   return res.status(403).json({ error: "Access denied" });
-    // }
+    if (
+      !board.members.some((member) => member._id.toString() === req.user.id) &&
+      board.owner._id.toString() !== req.user.id
+    ) {
+      return res.status(403).json({ error: "Access denied" });
+    }
 
     res.json(board);
   } catch (error) {

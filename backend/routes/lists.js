@@ -1,21 +1,20 @@
-const express = require('express');
-const { checkPermission } = require('../middleware/permissions.js');
+const express = require("express");
 const { authMiddleware } = require("../middleware/authMiddleware.js");
 
-const { 
-    createList,
-    getLists,
-    updateList,
-    deleteList,
-    moveList
-} = require('../controllers/listController.js');
+const {
+  createList,
+  getLists,
+  updateList,
+  deleteList,
+  moveList,
+} = require("../controllers/listController.js");
 
 const router = express.Router({ mergeParams: true });
 
-router.post('/', authMiddleware, checkPermission('create', 'list'), createList);
-router.get('/', authMiddleware, checkPermission('read', 'list'), getLists);
-router.put('/:id', authMiddleware, checkPermission('update', 'list'), updateList);
-router.delete('/:id', authMiddleware, checkPermission('delete', 'list'), deleteList);
-router.put('/:id/move', authMiddleware, checkPermission('update', 'list'), moveList);
+router.post("/", authMiddleware, createList);
+router.get("/", authMiddleware, getLists);
+router.put("/:id", authMiddleware, updateList);
+router.delete("/:id", authMiddleware, deleteList);
+router.put("/:id/move", authMiddleware, moveList);
 
-module.exports = router; 
+module.exports = router;

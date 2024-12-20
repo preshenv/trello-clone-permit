@@ -1,7 +1,6 @@
 // controllers/authController.js
 const bcrypt = require('bcryptjs');
 const User = require('../models/User.js');
-const permit = require('../config/permit.js');
 const jwt = require('jsonwebtoken');
 
 exports.register = async (req, res) => {
@@ -21,28 +20,13 @@ exports.register = async (req, res) => {
             name
         });
 
-        // Sync user with Permit.io
-        await permit.api.syncUser({
-            key: email,
-            email: email,
-            first_name: name,
-            attributes: {}
-        });
-
-        // Assign default viewer role
-        await permit.api.assignRole({
-            user: email,
-            role: "BoardViewer",
-            tenant: "default"
-        });
-
         // Generate JWT token
         const token = jwt.sign(
             { userId: user._id, email: user.email },  // Using userId here
             "djddjdjjdjd",
             { expiresIn: '24h' }
         );
-        console.log(token);
+
         res.status(201).json({
             user: {
                 id: user._id,

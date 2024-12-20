@@ -1,4 +1,3 @@
-const { checkPermission } = require("../middleware/permissions.js");
 const { authMiddleware } = require("../middleware/authMiddleware.js");
 const {
   getBoard,
@@ -11,34 +10,22 @@ const {
 const express = require("express");
 const router = express.Router();
 
-router.get(
-  "/:boardId",
-  authMiddleware,
-  checkPermission("read", "Board"),
-  getBoard
-);
+router.get("/:boardId", authMiddleware, getBoard);
 
 router.put(
   "/:boardId",
   authMiddleware,
-  checkPermission("update", "Board"),
   updateBoard
 );
 
-router.delete(
-  "/:boardId",
-  authMiddleware,
-  checkPermission("delete", "Board"),
-  deleteBoard
-);
+router.delete("/:boardId", authMiddleware, deleteBoard);
 
 router.post(
   "/:boardId/members",
   authMiddleware,
-  checkPermission("add_member", "Board"),
   addMember
 );
 
-router.get("/", authMiddleware, checkPermission("read", "Board"), getBoards);
+router.get("/", authMiddleware, getBoards);
 
 module.exports = router;

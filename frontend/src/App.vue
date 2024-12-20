@@ -1,18 +1,14 @@
 <template>
   <div id="app">
-    <ErrorModal />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import ErrorModal from './components/ErrorModal.vue'
 
 export default {
   name: 'App',
-  components: {
-    ErrorModal
-  }
+
 }
 </script>
 

@@ -20,19 +20,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      store.commit(
-        "SET_ERROR",
-        "You do not have permission to perform this action"
-      );
-    }
-    return Promise.reject(error);
-  }
-);
-
 store = createStore({
   state: {
     user: null,
